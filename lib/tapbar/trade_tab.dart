@@ -13,7 +13,7 @@ class TradeTab extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Container(
+        child: SingleChildScrollView( // ✅ Fixes Overflow
           child: Column(
             children: [
               Text('\$22,237.09', style: TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold)),
@@ -24,7 +24,8 @@ class TradeTab extends StatelessWidget {
                 children: ['1h', '8h', '24h', '1w', '1m', '1y'].map((e) => TimeframeButton(label: e)).toList(),
               ),
               SizedBox(height: 16),
-              Expanded(
+              Container( // ✅ Fixed height for chart
+                height: 200,
                 child: CandlestickChart(),
               ),
               SizedBox(height: 16),
@@ -42,7 +43,8 @@ class TradeTab extends StatelessWidget {
                   TradeButton(label: 'Buy', color: Color(0xFF5ED5A8)),
                   TradeButton(label: 'Sell', color: Color(0xFF5ED5A8)),
                 ],
-              )
+              ),
+              SizedBox(height: 20), // Extra spacing to prevent cut-off
             ],
           ),
         ),
@@ -104,23 +106,20 @@ class TradeButton extends StatelessWidget {
 class CandlestickChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      child: LineChart(
-        LineChartData(
-          gridData: FlGridData(show: false),
-          titlesData: FlTitlesData(show: false),
-          borderData: FlBorderData(show: false),
-          lineBarsData: [
-            LineChartBarData(
-              spots: [FlSpot(0, 1), FlSpot(1, 2), FlSpot(2, 1.5), FlSpot(3, 2.2)],
-              isCurved: true,
-              gradient: LinearGradient(colors: [Colors.green, Colors.lightGreen]),
-              barWidth: 2,
-              isStrokeCapRound: true,
-            ),
-          ],
-        ),
+    return LineChart(
+      LineChartData(
+        gridData: FlGridData(show: false),
+        titlesData: FlTitlesData(show: false),
+        borderData: FlBorderData(show: false),
+        lineBarsData: [
+          LineChartBarData(
+            spots: [FlSpot(0, 1), FlSpot(1, 2), FlSpot(2, 1.5), FlSpot(3, 2.2)],
+            isCurved: true,
+            gradient: LinearGradient(colors: [Colors.green, Colors.lightGreen]),
+            barWidth: 2,
+            isStrokeCapRound: true,
+          ),
+        ],
       ),
     );
   }

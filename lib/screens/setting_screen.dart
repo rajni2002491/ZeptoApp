@@ -34,6 +34,7 @@ class SettingScreen extends StatelessWidget {
 
               // 👇 Navigate to login screen (make sure '/login' is your route for LoginScreen)
               Navigator.pushNamedAndRemoveUntil(
+                // ignore: use_build_context_synchronously
                 context,
                 '/login',
                 (route) => false,

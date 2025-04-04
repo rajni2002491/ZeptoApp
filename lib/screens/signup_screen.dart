@@ -27,9 +27,11 @@ class _SignupScreenState extends State<SignupScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Signup Successful')));
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(builder: (context) => const SignupSuccess()),
       );
@@ -40,6 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
       } else if (e.code == 'weak-password') {
         message = 'Password should be at least 6 characters.';
       }
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
     }
   }

@@ -29,10 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       ScaffoldMessenger.of(
+        // ignore: use_build_context_synchronously
         context,
       ).showSnackBar(const SnackBar(content: Text('Login Successful')));
 
       // ✅ Navigate to HomeScreen
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       String error = 'Login failed';
@@ -42,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         error = 'Wrong password.';
       }
       ScaffoldMessenger.of(
+        // ignore: use_build_context_synchronously
         context,
       ).showSnackBar(SnackBar(content: Text(error)));
     }

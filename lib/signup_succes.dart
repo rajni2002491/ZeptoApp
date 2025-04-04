@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home_screen.dart';
-import 'package:flutter_application_1/login_screen.dart';
 
 class SignupSuccess extends StatelessWidget {
   const SignupSuccess({super.key});
@@ -44,7 +43,7 @@ class SignupSuccess extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => HomeScreen(),
                 ),
               );
             },

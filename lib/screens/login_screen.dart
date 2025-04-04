@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,10 +21,30 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _handleLogin() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Processing Login...')));
+  void _handleLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Login Successful')));
+
+      // ✅ Navigate to HomeScreen
+      Navigator.pushReplacementNamed(context, '/home');
+    } on FirebaseAuthException catch (e) {
+      String error = 'Login failed';
+      if (e.code == 'user-not-found') {
+        error = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        error = 'Wrong password.';
+      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
+    }
   }
 
   @override
@@ -34,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             ' Sign in',
             style: TextStyle(
               fontSize: 30,
@@ -43,7 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           const SizedBox(height: 40),
-          Text('Email', style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text(
+            'Email',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           const SizedBox(height: 10),
           TextField(
             controller: _emailController,
@@ -54,25 +78,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
-              fillColor: const Color(0xFF161C22), // Updated Background Color
+              fillColor: const Color.fromARGB(255, 192, 201, 210),
               hintStyle: const TextStyle(color: Colors.white70),
             ),
           ),
-
           const SizedBox(height: 40),
-          Text('Password', style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text(
+            'Password',
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           const SizedBox(height: 10),
           TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            obscureText: !_isPasswordVisible, // Toggles password visibility
+            controller: _passwordController,
+            obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
               hintText: 'Enter your password',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
-              fillColor: const Color(0xFF161C22), // Updated Background Color
+              fillColor: const Color.fromARGB(255, 156, 162, 168),
               hintStyle: const TextStyle(color: Colors.white70),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -81,35 +106,34 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onPressed: () {
                   setState(() {
-                    _isPasswordVisible = !_isPasswordVisible; // Toggle state
+                    _isPasswordVisible = !_isPasswordVisible;
                   });
                 },
               ),
             ),
           ),
-
           const SizedBox(height: 5),
-          Text(
+          const Text(
             'Forgot Password?',
             style: TextStyle(color: Color(0xFF5ED5A8), fontSize: 16),
           ),
           const SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: _handleLogin,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF5ED5A8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          SizedBox(
+            width: double.infinity,
+            height: 54,
+            child: ElevatedButton(
+              onPressed: _handleLogin,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF5ED5A8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              fixedSize: const Size(366, 54), // Set button size
-              textStyle: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            child: const Text(
-              'Sign in',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              child: const Text('Sign in'),
             ),
           ),
         ],

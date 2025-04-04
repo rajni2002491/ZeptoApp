@@ -81,6 +81,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Color(0xFF5ED5A8),
                       size: 29,
                     ),
+                    onPressed: () {},
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Color(0xFF5ED5A8),
+                      size: 29,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,

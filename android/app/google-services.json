@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016946072311",
+    "project_id": "auth-login-crypto",
+    "storage_bucket": "auth-login-crypto.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016946072311:android:f9c005e6dd19c7ee25d1f2",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLO850MSfaYUn_aE8IvAzRj3Y2wDH9JCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

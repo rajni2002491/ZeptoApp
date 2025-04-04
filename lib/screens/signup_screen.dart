@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/screens/signup_succes.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool _isPasswordVisible = false;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -19,8 +22,29 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-
-  bool _isPasswordVisible = false;
+  void _handleSignup() async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signup Successful')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignupSuccess()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = 'Signup failed';
+      if (e.code == 'email-already-in-use') {
+        message = 'This email is already registered.';
+      } else if (e.code == 'weak-password') {
+        message = 'Password should be at least 6 characters.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             ' Sign up',
             style: TextStyle(
               fontSize: 30,
@@ -39,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
           const SizedBox(height: 40),
-          Text('Email', style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text('Email', style: TextStyle(color: Colors.white, fontSize: 16)),
           const SizedBox(height: 10),
           TextField(
             controller: _emailController,
@@ -50,25 +74,23 @@ class _SignupScreenState extends State<SignupScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
-              fillColor: const Color(0xFF161C22), // Updated Background Color
+              fillColor: const Color.fromARGB(255, 193, 203, 210),
               hintStyle: const TextStyle(color: Colors.white70),
             ),
           ),
-
           const SizedBox(height: 40),
-          Text('Password', style: TextStyle(color: Colors.white, fontSize: 16)),
+          const Text('Password', style: TextStyle(color: Colors.white, fontSize: 16)),
           const SizedBox(height: 10),
           TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            obscureText: !_isPasswordVisible, // Toggles password visibility
+            controller: _passwordController,
+            obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
               hintText: 'Enter your password',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
-              fillColor: const Color(0xFF161C22), // Updated Background Color
+              fillColor: const Color.fromARGB(255, 152, 160, 167),
               hintStyle: const TextStyle(color: Colors.white70),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -77,28 +99,20 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 onPressed: () {
                   setState(() {
-                    _isPasswordVisible = !_isPasswordVisible; // Toggle state
+                    _isPasswordVisible = !_isPasswordVisible;
                   });
                 },
               ),
             ),
           ),
-
           const SizedBox(height: 5),
-          Text(
+          const Text(
             'Forgot Password?',
             style: TextStyle(color: Color(0xFF5ED5A8), fontSize: 16),
           ),
           const SizedBox(height: 40),
           ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SignupSuccess(),
-                ),
-              );
-            },
+            onPressed: _handleSignup,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF5ED5A8),
               fixedSize: const Size(366, 54),

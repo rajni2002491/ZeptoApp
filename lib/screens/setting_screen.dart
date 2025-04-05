@@ -12,6 +12,12 @@ class SettingScreen extends StatelessWidget {
         title: const Text("Settings", style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFF121212),
         elevation: 0,
+        leading: BackButton(
+          color: const Color(0xFF5ED5A8),
+          onPressed: () {
+            Navigator.pop(context); // 👈 Go back to the previous screen
+          },
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(10),

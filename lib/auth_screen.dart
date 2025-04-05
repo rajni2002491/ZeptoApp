@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/login_screen.dart';
+import 'screens/signin_screen.dart';
 import 'screens/signup_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   });
                 },
                 children: [
-                  _buildPage(const LoginScreen()),
+                  _buildPage(const SignInScreen()),
                   _buildPage(const SignupScreen()),
                 ],
               ),

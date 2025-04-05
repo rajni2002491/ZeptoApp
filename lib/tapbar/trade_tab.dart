@@ -19,9 +19,12 @@ class TradeTab extends StatelessWidget {
               Text('\$22,237.09', style: TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold)),
               Text('+2.04%', style: TextStyle(color: Colors.green, fontSize: 16)),
               SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: ['1h', '8h', '24h', '1w', '1m', '1y'].map((e) => TimeframeButton(label: e)).toList(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: ['1h', '8h', '24h', '1w', '1m', '1y'].map((e) => TimeframeButton(label: e)).toList(),
+                ),
               ),
               SizedBox(height: 16),
               Container( // ✅ Fixed height for chart

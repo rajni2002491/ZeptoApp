@@ -5,10 +5,10 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: const Color(0xFF1B232A),
       appBar: AppBar(
         title: const Text("ZeptoPulse", style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: const Color(0xFF1B232A),
         elevation: 0,
       ),
       body: ListView(
@@ -92,7 +92,8 @@ class HomeTab extends StatelessWidget {
     String change,
   ) {
     return Card(
-      color: Colors.black54,
+     color: const Color(0xFF1B232A),
+
       margin: const EdgeInsets.all(8),
       child: ListTile(
         title: Text(pair, style: const TextStyle(color: Colors.white)),
@@ -119,7 +120,8 @@ class HomeTab extends StatelessWidget {
 
   Widget _buildTopCurrencyCard(String pair, String change, String volume) {
     return Card(
-      color: Colors.black54,
+      color: const Color(0xFF1B232A),
+
       margin: const EdgeInsets.all(8),
       child: ListTile(
         title: Text(pair, style: const TextStyle(color: Colors.white)),

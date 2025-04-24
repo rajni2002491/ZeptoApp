@@ -5,9 +5,9 @@ class TradeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+       backgroundColor: const Color(0xFF1B232A),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF1B232A),
         title: Text('Bitcoin', style: TextStyle(color: Colors.white)),
         actions: [IconButton(icon: Icon(Icons.notifications, color: Colors.white), onPressed: () {})],
       ),

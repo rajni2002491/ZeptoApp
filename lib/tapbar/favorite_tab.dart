@@ -58,7 +58,12 @@ class FavoritesTab extends StatelessWidget {
       body: ListView.separated(
         padding: const EdgeInsets.all(10),
         itemCount: favorites.length,
-        separatorBuilder: (_, __) => const Divider(color: Colors.grey),
+        separatorBuilder:
+            (_, __) => Divider(
+              color: const Color(0xFF2C3A48), // or a similar dark tone
+              thickness: 0.5,
+            ),
+
         itemBuilder: (context, index) {
           final coin = favorites[index];
 

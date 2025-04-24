@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/providers/%20theme_provider.dart';
+import 'package:flutter_application_1/providers/theme_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/crypto_provider.dart';
 //import '../providers/theme_provider.dart'; // 👈 Import the theme provider
@@ -9,7 +9,7 @@ class CryptoListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cryptoAsync = ref.watch(cryptoProvider);
+    final cryptoAsync = ref.watch(topCryptosProvider);
     final themeMode = ref.watch(themeModeProvider);
 
     return Scaffold(
@@ -21,9 +21,10 @@ class CryptoListScreen extends ConsumerWidget {
               themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode,
             ),
             onPressed: () {
-              final newMode = themeMode == ThemeMode.dark
-                  ? ThemeMode.light
-                  : ThemeMode.dark;
+              final newMode =
+                  themeMode == ThemeMode.dark
+                      ? ThemeMode.light
+                      : ThemeMode.dark;
               ref.read(themeModeProvider.notifier).state = newMode;
             },
           ),
@@ -45,7 +46,22 @@ class CryptoListScreen extends ConsumerWidget {
                 ),
                 title: Text(crypto.name),
                 subtitle: Text(crypto.symbol.toUpperCase()),
-                trailing: Text('\$${crypto.currentPrice.toStringAsFixed(2)}'),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('\$${crypto.currentPrice.toStringAsFixed(2)}'),
+                    Text(
+                      '${crypto.priceChangePercentage24h.toStringAsFixed(2)}%',
+                      style: TextStyle(
+                        color:
+                            crypto.priceChangePercentage24h >= 0
+                                ? Colors.green
+                                : Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           );

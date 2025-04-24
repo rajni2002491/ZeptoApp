@@ -34,10 +34,11 @@ class _AuthScreenState extends State<AuthScreen> {
             const SizedBox(height: 40),
             // Sliding Tab Box
             Container(
-              width: 250,
-              height: 50,
+              width: 360,
+              height: 63,
               decoration: BoxDecoration(
-                color: const Color(0xFF1B232A), // Black Background
+                color: const Color(0xFF161C22),
+                borderRadius: BorderRadius.all(Radius.circular(14)), // Black Background
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,9 +73,9 @@ class _AuthScreenState extends State<AuthScreen> {
     return GestureDetector(
       onTap: () => _switchPage(index),
       child: Container(
-        width: 120,
+        width: 170,
         height: 50,
-        color: _selectedIndex == index ? const Color(0xFF1B232A) : Colors.black,
+        color: _selectedIndex == index ? const Color(0xFF1B232A) : const Color(0xFF161C22), // Black Background
         alignment: Alignment.center,
         child: Text(
           text,

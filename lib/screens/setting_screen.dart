@@ -22,7 +22,7 @@ class SettingScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-          const Divider(color: Colors.white),
+          //const Divider(color: Colors.white),
 
           // Settings Items
           _buildSettingItem(context, "Language", Icons.language, "English"),

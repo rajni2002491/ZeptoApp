@@ -52,7 +52,7 @@ class _MarketTabState extends State<MarketTab> {
                 final chartData = (coin['sparkline_in_7d']['price'] as List<dynamic>).cast<double>();
 
                 return Card(
-                  color: const Color(0xFF1E2A38),
+                  color: const Color(0xFF1B232A),
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: Padding(

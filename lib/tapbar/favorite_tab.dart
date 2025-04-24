@@ -49,10 +49,10 @@ class FavoritesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: const Color(0xFF1B232A),
       appBar: AppBar(
         title: const Text("Favourites", style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: const Color(0xFF1B232A),
         elevation: 0,
       ),
       body: ListView.separated(

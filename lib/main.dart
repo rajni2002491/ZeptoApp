@@ -13,7 +13,7 @@ void main() async {
   await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
-
+//working cheked
 class MyApp extends ConsumerWidget {
   const MyApp({super.key}); // 👈 Change to ConsumerWidget
 
